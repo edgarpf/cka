@@ -68,7 +68,8 @@ ps aux | grep kubelet
 #if you see cni for example go to /etc/cni/net.d/ to see which networkin soluton is used.
 
 #you can see how many weave agents/kube-proxy are deployed.
-#you can see the dns solution. Using the describe command you can see configuration file location for dns configs. 
+#you can see the dns solution. 
+#Using the describe command you can see configuration file location for dns configs. 
 #See configmap related to dns to know which is root domain/zone.
 #seeing the weave pods logs will show you the ip range for the pods.
 #seeing the kube-proxy logs will show the type type of proxy. 
