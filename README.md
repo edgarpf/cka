@@ -26,9 +26,13 @@ kubectl uncordon node02
 
 kubeadmin upgrade plan
 
+#to make a backup of etcd
+cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep etcd
+# you also can use vim /etc/kubernetes/manifests/etcd.yaml
 ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
   --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
   snapshot save <backup-file-location>
+
 
 ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
 
@@ -86,7 +90,49 @@ kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
 kubectl api-resources
 
 kubectl get node --kubeconfig path
+kubectl config get-contexts -o name > /opt/course/1/contexts
+kubectl config current-context
+cat ~/.kube/config | grep current
+
+kubectl get pod -A --sort-by=.metadata.creationTimestamp
+
+kubectl top node
+kubectl top pod --containers=true
+
+kubectl -n namespace auth can-i create secret
+
+kubectl config view
+
+kubectl set image deployment name_deploy --nginx=image --record
+kubectl api-resources --namespaced -o name
+
+service kubelet status
+service kubelet start
+whereis kubelet
+vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+#upgrade node
+kubelet --version
+kubeadm upgrade node
+
+# You can create a static pod in ***/etc/kubernetes/manifests/***. Put a yaml file there.
+
+#find certificate and validation
+find /etc/kubernetes/pki | grep apiserver
+openssl x509  -noout -text -in /etc/kubernetes/pki/apiserver.crt | grep Validity -A2
+
+#you can also use kubeadm
+kubeadm certs check-expiration | grep apiserver
+kubeadm certs renew apiserver
 ```
+
+ * The only thing a scheduler does, is that it sets the nodeName for a Pod declaration.
+ * It was requested that the DaemonSet runs on all nodes, so we need to specify the toleration for this.
+ * ssh into master node to see confg files in ***/etc/kubernetes/manifests***
+ * By default the kubelet looks into ***/etc/cni/net.d*** to discover the CNI plugins. 
+ * Which suffix will static pods have that run on cluster1-worker1?
+   * The suffix is the node hostname with a leading hyphen. It used to be -static in earlier Kubernetes versions.
+ * When available cpu or memory resources on the nodes reach their limit, Kubernetes will look for Pods that are using more resources than they requested. These will be the first candidates for termination. If some Pods containers have no resource requests/limits set, then by default those are considered to use more than requested. You can see them using ***kubectl -n namespace describe pod | less -p Requests***
 
 ## LimitRange
 
@@ -197,4 +243,35 @@ roleRef:
   kind: ClusterRole
   name: secret-reader
   apiGroup: rbac.authorization.k8s.io
+```
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-backend
+  namespace: project-snake
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes:
+    - Egress                    # policy is only about Egress
+  egress:
+    -                           # first rule
+      to:                           # first condition "to"
+      - podSelector:
+          matchLabels:
+            app: db1
+      ports:                        # second condition "port"
+      - protocol: TCP
+        port: 1111
+    -                           # second rule
+      to:                           # first condition "to"
+      - podSelector:
+          matchLabels:
+            app: db2
+      ports:                        # second condition "port"
+      - protocol: TCP
+        port: 2222
 ```
