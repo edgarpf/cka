@@ -81,7 +81,8 @@ kubectl exec busybox -- route -n
 kubectl get nodes -o wide
 ip a
 
-# to see ip ranges for services go to /etc/kubernetes/manifests and see file related to apiserver. Search for service-cluster-ip-range property
+# to see ip ranges for services go to /etc/kubernetes/manifests and see file related to apiserver. 
+#Search for service-cluster-ip-range property
 
 service kubelet status
 service kubelet start
