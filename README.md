@@ -127,6 +127,22 @@ openssl x509  -noout -text -in /etc/kubernetes/pki/apiserver.crt | grep Validity
 #you can also use kubeadm
 kubeadm certs check-expiration | grep apiserver
 kubeadm certs renew apiserver
+
+#upgrade a node to 1.19.0
+ssh node01
+kubectl drain node01 --ignore-daemonsets
+apt update
+apt install kubeadm=1.19.0-00
+kubeadm upgrade apply v1.19.0
+apt install kubelet=1.19.0-00
+systemctl restart kubelet
+kubectl uncordon node01
+logout
+
+kubectl get node node01 -o json
+kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
+
+#the path for /var/lib/kubelet is the config of kubelet.
 ```
 
  * The only thing a scheduler does, is that it sets the nodeName for a Pod declaration.
@@ -136,6 +152,8 @@ kubeadm certs renew apiserver
  * Which suffix will static pods have that run on cluster1-worker1?
    * The suffix is the node hostname with a leading hyphen. It used to be -static in earlier Kubernetes versions.
  * When available cpu or memory resources on the nodes reach their limit, Kubernetes will look for Pods that are using more resources than they requested. These will be the first candidates for termination. If some Pods containers have no resource requests/limits set, then by default those are considered to use more than requested. You can see them using ***kubectl -n namespace describe pod | less -p Requests***
+ * To create a user you need to create a ***CertificateSigningRequest***, Role and RoleBinding. Look at the docs.
+ * Taint a node to avoid resources being scheduled on it. 
 
 ## LimitRange
 
