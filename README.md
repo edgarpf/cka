@@ -145,7 +145,7 @@ kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
 #the path for /var/lib/kubelet is the config of kubelet.
 ```
 
- * The only thing a scheduler does, is that it sets the nodeName for a Pod declaration.
+ * The only thing a scheduler does is that it sets the nodeName for a Pod declaration.
  * It was requested that the DaemonSet runs on all nodes, so we need to specify the toleration for this.
  * ssh into master node to see confg files in ***/etc/kubernetes/manifests***
  * By default the kubelet looks into ***/etc/cni/net.d*** to discover the CNI plugins. 
