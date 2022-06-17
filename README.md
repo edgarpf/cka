@@ -147,7 +147,7 @@ kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
 
  * The only thing a scheduler does is that it sets the nodeName for a Pod declaration.
  * It was requested that the DaemonSet runs on all nodes, so we need to specify the toleration for this.
- * ssh into master node to see confg files in ***/etc/kubernetes/manifests***
+ * ssh into master node to see config files in ***/etc/kubernetes/manifests***
  * By default the kubelet looks into ***/etc/cni/net.d*** to discover the CNI plugins. 
  * Which suffix will static pods have that run on cluster1-worker1?
    * The suffix is the node hostname with a leading hyphen. It used to be -static in earlier Kubernetes versions.
