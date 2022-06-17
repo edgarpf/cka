@@ -13,7 +13,7 @@ kubectl get po --selector env=dev,bu=finance
 #count how many pods exist.
 kubectl get po --no-headers | wc -l
 
-#to see which is the path of the directory holding the statuc pod of definition file.
+#to see which is the path of the directory holding the status pod of definition file.
 cd /var/lib
 
 kubecl drain node01
