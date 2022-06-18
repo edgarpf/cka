@@ -154,6 +154,7 @@ kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
  * When available cpu or memory resources on the nodes reach their limit, Kubernetes will look for Pods that are using more resources than they requested. These will be the first candidates for termination. If some Pods containers have no resource requests/limits set, then by default those are considered to use more than requested. You can see them using ***kubectl -n namespace describe pod | less -p Requests***
  * To create a user you need to create a ***CertificateSigningRequest***, Role and RoleBinding. Look at the docs.
  * Taint a node to avoid resources being scheduled on it. 
+ * ETCD starts a servie that listen on port 2379 by default.
 
 ## LimitRange
 
