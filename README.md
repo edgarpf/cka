@@ -155,7 +155,10 @@ kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
  * To create a user you need to create a ***CertificateSigningRequest***, Role and RoleBinding. Look at the docs.
  * Taint a node to avoid resources being scheduled on it. 
  * ETCD starts a servie that listen on port 2379 by default.
-
+ * Must watch:
+   * [How to upgrade nodes](https://www.youtube.com/watch?v=3jcIN_TOc6E&ab_channel=AlokKumar).
+   * [ETCD backup and restore](https://www.youtube.com/watch?v=mODkt1OJDew&ab_channel=AlokKumar).
+   * [Static pods](https://www.youtube.com/watch?v=Vm_Q95RJJPU&ab_channel=AlokKumar)
 ## LimitRange
 
 ```yaml
