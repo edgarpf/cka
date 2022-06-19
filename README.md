@@ -2,6 +2,8 @@
 
 Tips for Certified Kubernetes Administrator
 
+[](https://i.ibb.co/dcczHBp/kube.png)
+
 ```
 kubectl replace --force -f pod.yaml
 
