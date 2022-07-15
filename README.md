@@ -145,6 +145,15 @@ kubectl get node node01 -o json
 kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
 
 #the path for /var/lib/kubelet is the config of kubelet.
+
+#If node01 is nodeNotReady describe that node. If you see Kubelet stopped posting node status you will need to ssh into the node. See the file #/etc/kubernetes/kubelet.conf. Correct the file if you find anything wrong. And restart the service:
+systemctl daemon-reload
+systemctl restart kubelet
+
+#see the result with:
+systmctl status kubelet
+
+
 ```
 
  * The only thing a scheduler does is that it sets the nodeName for a Pod declaration.
