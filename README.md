@@ -174,6 +174,7 @@ systemctl status kubelet
    * [Static pods](https://www.youtube.com/watch?v=Vm_Q95RJJPU&ab_channel=AlokKumar).
    * [Taint and Tolerations](https://www.youtube.com/watch?v=_5xNAk4jOFs&ab_channel=AlokKumar).
    * [Worker node kubelet troubleshooting](https://www.youtube.com/watch?v=xvavhBWy0bI&ab_channel=MyCloudTutorials)
+   * [NetworkPolicy](https://www.youtube.com/watch?v=KK49iNc_W4I&ab_channel=MyCloudTutorials)
 ## LimitRange
 
 ```yaml
