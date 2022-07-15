@@ -153,7 +153,7 @@ systemctl daemon-reload
 systemctl restart kubelet
 
 #see the result with:
-systmctl status kubelet
+systemctl status kubelet
 
 
 ```
