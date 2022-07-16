@@ -19,16 +19,7 @@ systemctl restart kubelet
 systemctl status kubelet
 ```
 
- * The only thing a scheduler does is that it sets the nodeName for a Pod declaration.
- * It was requested that the DaemonSet runs on all nodes, so we need to specify the toleration for this.
- * ssh into master node to see config files in ***/etc/kubernetes/manifests***
- * By default the kubelet looks into ***/etc/cni/net.d*** to discover the CNI plugins. 
- * Which suffix will static pods have that run on cluster1-worker1?
-   * The suffix is the node hostname with a leading hyphen. It used to be -static in earlier Kubernetes versions.
- * When available cpu or memory resources on the nodes reach their limit, Kubernetes will look for Pods that are using more resources than they requested. These will be the first candidates for termination. If some Pods containers have no resource requests/limits set, then by default those are considered to use more than requested. You can see them using ***kubectl -n namespace describe pod | less -p Requests***
- * To create a user you need to create a ***CertificateSigningRequest***, Role and RoleBinding. Look at the docs.
- * Taint a node to avoid resources being scheduled on it. 
- * ETCD starts a service that listen on port 2379 by default.
+ * In the exam, when you are using vim press 'i' to enter in insert mode (insert key will not work).
  * Must watch:
    * [How to upgrade nodes](https://www.youtube.com/watch?v=3jcIN_TOc6E&ab_channel=AlokKumar).
    * [ETCD backup and restore](https://www.youtube.com/watch?v=mODkt1OJDew&ab_channel=AlokKumar). In the exam you willneed the [Doc](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster).
