@@ -9,6 +9,7 @@ Tips for Certified Kubernetes Administrator
 kubectl top pod
 
 #If node01 is nodeNotReady describe that node. 
+kubectl describe node01
 #If you see Kubelet stopped posting node status you will need to ssh into the node. See the file #/etc/kubernetes/kubelet.conf. 
 #Correct the file if you find anything wrong. And restart the service. 
 #You can try only restart the service. Some questions require only that.
