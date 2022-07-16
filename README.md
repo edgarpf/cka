@@ -5,157 +5,17 @@ Tips for Certified Kubernetes Administrator
 ![](https://i.ibb.co/dcczHBp/kube.png)
 
 ```
-kubectl replace --force -f pod.yaml
-
-#see the changes in real time.
-kubectl get po --watch
-
-kubectl get po --selector env=dev,bu=finance
-
-#count how many pods exist.
-kubectl get po --no-headers | wc -l
-
-#to see which is the path of the directory holding the status pod of definition file.
-cd /var/lib
-
-kubecl drain node01
-
-#no new pods will be put in node01
-kubectl cordon node01
-
-#put the node back in the game
-kubectl uncordon node02
-
-kubeadmin upgrade plan
-
-#to make a backup of etcd
-cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep etcd
-# you also can use vim /etc/kubernetes/manifests/etcd.yaml
-ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
-  --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
-  snapshot save <backup-file-location>
-
-
-ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
-
-# to discover network interface used by master node
-# you also can see ip address alocated to master node through # inet
-# ether is the mac address
-ifconfig -e
-cat /etc/network/interfaces
-
-# to connect to a particular node
-ssh node01
-
-# to see docker bridge
-ifconfig -a
-
-# to see the status of a networking interface
-# you can also see the name of the bridge/network created by weave
-ip link 
-
-# to see the route
-ip r
-
-# to see in which port ks is running
-netstat -natulp | grep kube-scheduler
-
-# identify network plugin configured to kubernetes
-# /opt/cni/plugin is the path for cni plugins
-# /etc/cnt/net.d/ is the path for cni plugin configured for kubernetes
-ps aux | grep kubelet | grep network
-
-# to see which the networking solution use this
-ps aux | grep kubelet
-#if you see cni for example go to /etc/cni/net.d/ to see which networkin soluton is used.
-
-#you can see how many weave agents/kube-proxy are deployed.
-#you can see the dns solution. 
-#Using the describe command you can see configuration file location for dns configs. 
-#See configmap related to dns to know which is root domain/zone.
-#seeing the weave pods logs will show you the ip range for the pods.
-#seeing the kube-proxy logs will show the type type of proxy. 
-kubectl get po -n kube-system
-
-#to see the gayeway in a pod
-#remember that you can force a pod to be in a specific node using nodeName property
-kubectl exec busybox -- route -n
-
-#you can see ip range for nodes.
-kubectl get nodes -o wide
-ip a
-
-# to see ip ranges for services go to /etc/kubernetes/manifests and see file related to apiserver. 
-#Search for service-cluster-ip-range property
-
-service kubelet status
-service kubelet start
-
-kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
-kubectl api-resources
-
-kubectl get node --kubeconfig path
-kubectl config get-contexts -o name > /opt/course/1/contexts
-kubectl config current-context
-cat ~/.kube/config | grep current
-
-kubectl get pod -A --sort-by=.metadata.creationTimestamp
-
-kubectl top node
-kubectl top pod --containers=true
-
-kubectl -n namespace auth can-i create secret
-
-kubectl config view
-
-kubectl set image deployment name_deploy --nginx=image --record
-kubectl api-resources --namespaced -o name
-
-service kubelet status
-service kubelet start
-whereis kubelet
-vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-
-#upgrade node
-kubelet --version
-kubeadm upgrade node
-
-# You can create a static pod in ***/etc/kubernetes/manifests/***. Put a yaml file there.
-
-#find certificate and validation
-find /etc/kubernetes/pki | grep apiserver
-openssl x509  -noout -text -in /etc/kubernetes/pki/apiserver.crt | grep Validity -A2
-
-#you can also use kubeadm
-kubeadm certs check-expiration | grep apiserver
-kubeadm certs renew apiserver
-
-#upgrade a node to 1.19.0
-ssh node01
-kubectl drain node01 --ignore-daemonsets
-apt update
-apt install kubeadm=1.19.0-00
-kubeadm upgrade apply v1.19.0
-apt install kubelet=1.19.0-00
-systemctl restart kubelet
-kubectl uncordon node01
-logout
-
-kubectl get node node01 -o json
-kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
-
-#the path for /var/lib/kubelet is the config of kubelet.
+#to see cpu/memory consumption
+kubectl top pod
 
 #If node01 is nodeNotReady describe that node. 
 #If you see Kubelet stopped posting node status you will need to ssh into the node. See the file #/etc/kubernetes/kubelet.conf. 
-#Correct the file if you find anything wrong. And restart the service:
+#Correct the file if you find anything wrong. And restart the service. You can try only restart the service. Some questions require only that.
 systemctl daemon-reload
 systemctl restart kubelet
 
 #see the result with:
 systemctl status kubelet
-
-
 ```
 
  * The only thing a scheduler does is that it sets the nodeName for a Pod declaration.
