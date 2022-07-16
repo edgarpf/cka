@@ -23,7 +23,7 @@ systemctl status kubelet
  * In the exam, when you are using vim press 'i' to enter in insert mode (insert key will not work).
  * Must watch:
    * [How to upgrade nodes](https://www.youtube.com/watch?v=3jcIN_TOc6E&ab_channel=AlokKumar).
-   * [ETCD backup and restore](https://www.youtube.com/watch?v=mODkt1OJDew&ab_channel=AlokKumar). In the exam you willneed the [Doc](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster).
+   * [ETCD backup and restore](https://www.youtube.com/watch?v=mODkt1OJDew&ab_channel=AlokKumar). In the exam you will need the [Doc](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster).
    * [Static pods](https://www.youtube.com/watch?v=Vm_Q95RJJPU&ab_channel=AlokKumar).
    * [Taint and Tolerations](https://www.youtube.com/watch?v=_5xNAk4jOFs&ab_channel=AlokKumar).
    * [Worker node kubelet troubleshooting](https://www.youtube.com/watch?v=xvavhBWy0bI&ab_channel=MyCloudTutorials)
